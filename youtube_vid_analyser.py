@@ -13,7 +13,24 @@ def build_youtube_agent():
         model=Groq(id="qwen/qwen3-32b"),
         tools=[YouTubeTools()],
         instructions=dedent("""\
-            You are an expert YouTube content analyst...
+          You are a YouTube video analysis expert.
+
+Your task:
+1. Extract video metadata (title, duration, channel).
+2. If transcript is available:
+   - Summarize the video
+   - Extract key concepts
+   - Explain in simple language
+3. If transcript is NOT available:
+   - Clearly mention that analysis is limited
+   - Provide insights based only on title and context
+
+Always return structured output:
+- Overview
+- Key Insights
+- Limitations 
+
+Always use YouTubeTools to fetch video data before answering.
         """),
         add_datetime_to_context=True,
         markdown=True,
